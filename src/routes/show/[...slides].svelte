@@ -1,31 +1,36 @@
 <script context="module">
+	import formatSlide from '$lib/formatslide'	
 	import getPattern from '$lib/pattern'
     export async function load({page, fetch}) {
+
+		let slides = page.params
+			.slides
+			.replace(/\-/g,' ')
+			.split('/')
+			.map( el => formatSlide(el))
+
 		return {
-			props: { pattern: getPattern() }
+			props: { 
+				pattern: getPattern(),
+				slides,
+			}
 		}
 
     }	
 </script>
 <script>
+	import './_slide.postcss'
 	import {onMount} from 'svelte'
-	import Partner from './_partner.svelte'
 	import { page } from '$app/stores'
-	import formatSlide from '$lib/formatslide'
+	import Partner from './_partner.svelte'
 
 	export let pattern
-	let slides = $page.params
-		.slides
-		.replace(/\-/g,' ')
-		.split('/')
-		.map( el => formatSlide(el))
+	export let slides = []
 
-	let slide0 = $page.params.slides.split('/')[0]
+	let slide0 = 'titulo'
 	let title = `StringShow - ${slide0}`
 	let ogImage = `https://cdn.statically.io/og/${title}.jpg`
-	let bg = {
 
-	}
 	onMount(()=>{
 		document.body.addEventListener("keyup", (e) => {
 			console.log(e)
@@ -73,8 +78,8 @@
 <div class="slides relative w-screen h-screen overflow-hidden" >
 	<div class="slides">
 		{#each slides as slide, index (slide)}
-		    <div class="slide absolute inset-0 w-screen h-screen text-white flex items-center justify-center px-20 sm:px-40 transition-all ease-in-out duration-1000 transform text-3xl sm:text-6xl { !index ? 'translate-x-0' : 'translate-x-full'} " style={pattern} >
-		    	<div class="text-center leading-normal">
+		    <div class="slide absolute inset-0 w-screen h-screen text-white flex items-center justify-center px-20 sm:px-40 transition-all ease-in-out duration-1000 transform text-3xl sm:text-5xl leading-snug { !index ? 'translate-x-0' : 'translate-x-full'} " style={pattern} >
+		    	<div class="">
 			    	{@html slide}
 		    	</div>
 			</div>
