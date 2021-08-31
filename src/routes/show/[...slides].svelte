@@ -13,7 +13,6 @@
 	import { page } from '$app/stores'
 	import formatSlide from '$lib/formatslide'
 
-	export let color
 	export let pattern
 	let slides = $page.params
 		.slides

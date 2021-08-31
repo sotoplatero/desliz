@@ -2,7 +2,7 @@
 	"name": "usecard",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "svelte-kit dev -p 3003",
+		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
 		"start": "svelte-kit start"
 	},
